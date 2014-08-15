@@ -35,6 +35,8 @@ class Deployment
       @configureEnvironments()
 
   setUserToken: (token) ->
+    console.log 'setting token'
+    console.log token
     @api = Octonode.client(token.trim())
     @api.requestDefaults.headers['Accept'] = 'application/vnd.github.cannonball-preview+json'
 
@@ -66,6 +68,9 @@ class Deployment
     params     =
       environment: @env
 
+    console.log @api
+    console.log path
+
     @api.get path, params, (err, status, body, headers) ->
       if err
         body = err
@@ -79,6 +84,10 @@ class Deployment
     repository = @repository
     env        = @env
     ref        = @ref
+
+    console.log path
+    console.log name
+    console.log repository
 
     @api.post path, @requestBody(), (err, status, body, headers) ->
       data = body
